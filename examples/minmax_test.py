@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 
-from tts_clients.mini_max import MiniMaxT2AClient
-from tts_clients.models import TextToAudioRequest, VoiceSetting
+from tts_clients.minmax.client import MiniMaxT2AClient
+from tts_clients.minmax.models import TextToAudioRequest, VoiceSetting
 
 
 load_dotenv()

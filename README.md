@@ -11,4 +11,5 @@ pip install tts-clients
 ## Available Clients
 
 - [MiniMax T2A](https://www.minimax.io/platform_overview)
+- [Google TTS](https://ai.google.dev/gemini-api/docs/speech-generation)
 
