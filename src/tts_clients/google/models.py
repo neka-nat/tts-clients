@@ -1,6 +1,7 @@
 
 import io
 import wave
+from pathlib import Path
 from typing import Literal
 
 from pydantic import BaseModel
@@ -60,13 +61,17 @@ class TextToAudioResponse(BaseModel):
             wf.writeframes(audio)
         return cls(audio=buf.getvalue())
 
-    def save_wav(self, path: str):
+    def save_wav(self, path: str | Path):
+        if not isinstance(path, Path):
+            path = Path(path)
         if not path.endswith(".wav"):
             raise ValueError("path must end with .wav")
         with open(path, "wb") as f:
             f.write(self.audio)
 
-    def save_mp3(self, path: str):
+    def save_mp3(self, path: str | Path):
+        if not isinstance(path, Path):
+            path = Path(path)
         if not path.endswith(".mp3"):
             raise ValueError("path must end with .mp3")
         wav_io = io.BytesIO(self.audio)

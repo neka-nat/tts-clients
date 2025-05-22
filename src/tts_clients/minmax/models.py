@@ -1,4 +1,5 @@
 from typing import Any, Literal
+from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -85,7 +86,9 @@ class AudioData(BaseModel):
     def to_bytes(self) -> bytes:
         return bytes.fromhex(self.audio)
 
-    def save_mp3(self, path: str):
+    def save_mp3(self, path: str | Path):
+        if not isinstance(path, Path):
+            path = Path(path)
         if not path.endswith(".mp3"):
             raise ValueError("path must end with .mp3")
         with open(path, "wb") as f:
