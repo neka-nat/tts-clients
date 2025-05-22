@@ -25,4 +25,4 @@ class GoogleTTSClient:
             ),
         )
         data = response.candidates[0].content.parts[0].inline_data.data
-        return TextToAudioResponse(audio=data)
+        return TextToAudioResponse.from_bytes(data)

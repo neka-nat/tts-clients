@@ -85,7 +85,9 @@ class AudioData(BaseModel):
     def to_bytes(self) -> bytes:
         return bytes.fromhex(self.audio)
 
-    def save(self, path: str):
+    def save_mp3(self, path: str):
+        if not path.endswith(".mp3"):
+            raise ValueError("path must end with .mp3")
         with open(path, "wb") as f:
             f.write(self.to_bytes())
 

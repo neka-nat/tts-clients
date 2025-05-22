@@ -9,4 +9,4 @@ load_dotenv()
 
 client = MiniMaxT2AClient()
 r = client.text_to_audio(TextToAudioRequest(text="こんにちは！", voice_setting=VoiceSetting(emotion="angry")))
-r.data.save("test.mp3")
+r.data.save_mp3("test.mp3")
