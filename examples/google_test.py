@@ -8,4 +8,4 @@ load_dotenv()
 
 client = GoogleTTSClient()
 r = client.text_to_audio(TextToAudioRequest(text="こんにちは！", instructions="Say cheerfully", voice_name="Charon"))
-r.save_wav("test.wav")
+r.save_mp3("test.mp3")

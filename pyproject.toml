@@ -1,6 +1,6 @@
 [project]
 name = "tts-clients"
-version = "0.2.0"
+version = "0.3.0"
 description = "Add your description here"
 readme = "README.md"
 authors = [
@@ -12,6 +12,7 @@ dependencies = [
     "httpx>=0.28.1",
     "openai>=1.81.0",
     "pydantic>=2.11.4",
+    "pydub>=0.25.1",
     "python-dotenv>=1.1.0",
 ]
 

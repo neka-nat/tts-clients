@@ -4,6 +4,7 @@ import wave
 from typing import Literal
 
 from pydantic import BaseModel
+from pydub import AudioSegment
 
 
 VoiceNameTypes = Literal[
@@ -47,7 +48,7 @@ class TextToAudioRequest(BaseModel):
 
 
 class TextToAudioResponse(BaseModel):
-    audio: bytes
+    audio: bytes  # wav
 
     @classmethod
     def from_bytes(cls, audio: bytes) -> "TextToAudioResponse":
@@ -64,3 +65,13 @@ class TextToAudioResponse(BaseModel):
             raise ValueError("path must end with .wav")
         with open(path, "wb") as f:
             f.write(self.audio)
+
+    def save_mp3(self, path: str):
+        if not path.endswith(".mp3"):
+            raise ValueError("path must end with .mp3")
+        wav_io = io.BytesIO(self.audio)
+        audio = AudioSegment.from_file(wav_io, format="wav")
+        mp3_io = io.BytesIO()
+        audio.export(mp3_io, format="mp3", bitrate="192k")
+        with open(path, "wb") as f:
+            f.write(mp3_io.getvalue())
