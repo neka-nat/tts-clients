@@ -1,7 +1,7 @@
 from google import genai
 from google.genai import types
 
-from .models import TextToAudioRequest, TextToAudioResponse
+from .models import MultiSpeakerTextToAudioRequest, TextToAudioRequest, TextToAudioResponse
 
 
 class GoogleTTSClient:
@@ -22,6 +22,37 @@ class GoogleTTSClient:
                         )
                     ),
                 ),
+            ),
+        )
+        data = response.candidates[0].content.parts[0].inline_data.data
+        return TextToAudioResponse.from_bytes(data)
+
+    def multi_speaker_text_to_audio(self, req: MultiSpeakerTextToAudioRequest) -> TextToAudioResponse:
+        prompt_text = "\n".join([
+            f"{speaker.speaker_name}: {speaker.text}"
+            for speaker in req.speakers
+        ])
+        speech_config=types.SpeechConfig(
+           multi_speaker_voice_config=types.MultiSpeakerVoiceConfig(
+              speaker_voice_configs=[
+                 types.SpeakerVoiceConfig(
+                    speaker=speaker.speaker_name,
+                    voice_config=types.VoiceConfig(
+                       prebuilt_voice_config=types.PrebuiltVoiceConfig(
+                          voice_name=speaker.voice_name,
+                       )
+                    )
+                 )
+                 for speaker in req.speakers
+              ]
+           )
+        )
+        response = self.client.models.generate_content(
+            model=self.model,
+            contents=f"{req.instructions}:\n{prompt_text}",
+            config=types.GenerateContentConfig(
+                response_modalities=["AUDIO"],
+                speech_config=speech_config,
             ),
         )
         data = response.candidates[0].content.parts[0].inline_data.data

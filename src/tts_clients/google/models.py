@@ -80,3 +80,14 @@ class TextToAudioResponse(BaseModel):
         audio.export(mp3_io, format="mp3", bitrate="192k")
         with open(path, "wb") as f:
             f.write(mp3_io.getvalue())
+
+
+class SpeakerTextToAudioRequest(BaseModel):
+    speaker_name: str
+    text: str
+    voice_name: VoiceNameTypes = "Kore"
+
+
+class MultiSpeakerTextToAudioRequest(BaseModel):
+    speakers: list[SpeakerTextToAudioRequest]
+    instructions: str
