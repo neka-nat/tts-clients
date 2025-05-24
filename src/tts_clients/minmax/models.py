@@ -89,7 +89,7 @@ class AudioData(BaseModel):
     def save_mp3(self, path: str | Path):
         if not isinstance(path, Path):
             path = Path(path)
-        if not path.endswith(".mp3"):
+        if not path.suffix == ".mp3":
             raise ValueError("path must end with .mp3")
         with open(path, "wb") as f:
             f.write(self.to_bytes())

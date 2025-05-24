@@ -64,7 +64,7 @@ class TextToAudioResponse(BaseModel):
     def save_wav(self, path: str | Path):
         if not isinstance(path, Path):
             path = Path(path)
-        if not path.endswith(".wav"):
+        if not path.suffix == ".wav":
             raise ValueError("path must end with .wav")
         with open(path, "wb") as f:
             f.write(self.audio)
@@ -72,7 +72,7 @@ class TextToAudioResponse(BaseModel):
     def save_mp3(self, path: str | Path):
         if not isinstance(path, Path):
             path = Path(path)
-        if not path.endswith(".mp3"):
+        if not path.suffix == ".mp3":
             raise ValueError("path must end with .mp3")
         wav_io = io.BytesIO(self.audio)
         audio = AudioSegment.from_file(wav_io, format="wav")

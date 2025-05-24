@@ -1,11 +1,17 @@
 from dotenv import load_dotenv
 
 from tts_clients.google.client import GoogleTTSClient
-from tts_clients.google.models import TextToAudioRequest
+from tts_clients.google.models import MultiSpeakerTextToAudioRequest, SpeakerTextToAudioRequest
 
 
 load_dotenv()
 
 client = GoogleTTSClient()
-r = client.text_to_audio(TextToAudioRequest(text="こんにちは！", instructions="Say cheerfully", voice_name="Orus"))
+r = client.multi_speaker_text_to_audio(MultiSpeakerTextToAudioRequest(
+    speakers=[
+        SpeakerTextToAudioRequest(speaker_name="speaker1", text="こんにちは！", voice_name="Kore"),
+        SpeakerTextToAudioRequest(speaker_name="speaker2", text="こんばんは！", voice_name="Orus"),
+    ],
+    instructions="Say cheerfully",
+))
 r.save_mp3("test.mp3")
