@@ -32,18 +32,19 @@ class GoogleTTSClient:
             f"{speaker.speaker_name}: {speaker.text}"
             for speaker in req.speakers
         ])
+        speakers_set = set([(speaker.speaker_name, speaker.voice_name) for speaker in req.speakers])
         speech_config=types.SpeechConfig(
            multi_speaker_voice_config=types.MultiSpeakerVoiceConfig(
               speaker_voice_configs=[
                  types.SpeakerVoiceConfig(
-                    speaker=speaker.speaker_name,
+                    speaker=speaker[0],
                     voice_config=types.VoiceConfig(
                        prebuilt_voice_config=types.PrebuiltVoiceConfig(
-                          voice_name=speaker.voice_name,
+                          voice_name=speaker[1],
                        )
                     )
                  )
-                 for speaker in req.speakers
+                 for speaker in speakers_set
               ]
            )
         )
