@@ -96,6 +96,23 @@ wheels = [
 ]
 
 [[package]]
+name = "elevenlabs"
+version = "2.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "pydantic-core" },
+    { name = "requests" },
+    { name = "typing-extensions" },
+    { name = "websockets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6b/61/60b05ecdaec969c93551d47458711982fc66fa04bc35cd629f41abd45771/elevenlabs-2.1.0.tar.gz", hash = "sha256:182b3a8d7ba3eb4f427407e23c49b187d1e115de41663cc396facb65cdd62e44", size = 239885 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/05/f2/d94eef076fdfa415e99ae3f8522c3542c4e5a50b555c2c795369659105b8/elevenlabs-2.1.0-py3-none-any.whl", hash = "sha256:b404e02d92fe273b8bd138ebe95f4b02e18dd15b990fedb1e76633bdb86a16f6", size = 682926 },
+]
+
+[[package]]
 name = "google-auth"
 version = "2.40.1"
 source = { registry = "https://pypi.org/simple" }
@@ -386,9 +403,10 @@ wheels = [
 
 [[package]]
 name = "tts-clients"
-version = "0.4.0"
+version = "0.4.1"
 source = { editable = "." }
 dependencies = [
+    { name = "elevenlabs" },
     { name = "google-genai" },
     { name = "httpx" },
     { name = "openai" },
@@ -399,6 +417,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "elevenlabs", specifier = ">=2.1.0" },
     { name = "google-genai", specifier = ">=1.16.1" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "openai", specifier = ">=1.81.0" },
