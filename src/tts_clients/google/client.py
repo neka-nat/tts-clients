@@ -5,7 +5,7 @@ from .models import MultiSpeakerTextToAudioRequest, TextToAudioRequest, TextToAu
 
 
 class GoogleTTSClient:
-    def __init__(self, model: str = "gemini-2.5-flash-preview-tts"):
+    def __init__(self, model: str = "gemini-2.5-pro-preview-tts"):
         self.client = genai.Client()
         self.model = model
 
